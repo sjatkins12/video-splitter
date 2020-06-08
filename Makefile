@@ -1,4 +1,4 @@
-NAME = ffmpeg_tuto
+NAME = video-splitter
 
 CC = gcc
 
@@ -18,7 +18,7 @@ SRC =  \
 
 SRCDIR = src/
 
-FFMPEGSRC = $(patsubst %, %.o, $(addprefix $(SRCDIR), $(SRC)))
+SPLITTERSRC = $(patsubst %, %.o, $(addprefix $(SRCDIR), $(SRC)))
 
 ################################################################################
 # INCLUDE PATHS                                                                #
@@ -51,9 +51,9 @@ RES = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(FFMPEGSRC)
+$(NAME): $(SPLITTERSRC)
 	@ echo "$(YELLOW)Compiling programs$(RES)"
-	$(CC) $(FLAGS) $(LIB_LINK) $(INCLUDES) $(FFMPEGSRC) -o $(NAME)
+	$(CC) $(FLAGS) $(LIB_LINK) $(INCLUDES) $(SPLITTERSRC) -o $(NAME)
 	@echo "$(GREEN)Binaries Compiled$(RES)"
 
 %.o: %.c
@@ -64,12 +64,12 @@ debug: CFLAGS += -g -DDEBUG
 debug: clean $(NAME)
 
 clean:
-	rm -f $(FFMPEGSRC)
+	rm -f $(SPLITTERSRC)
 	@ echo "$(RED)Cleaning folders of object files...$(RES)"
 
 fclean: clean
 	rm -f $(NAME)
-	@ echo "$(RED)Removing library file and binary...$(RES)"
+	@ echo "$(RED)Removing binary...$(RES)"
 
 re: fclean all
 	@ echo "$(GREEN)Binary Remade$(RES)"
