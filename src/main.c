@@ -190,17 +190,17 @@ static int capture_frames(int videoStream, AVCodecContext *pCodecCtx, AVFormatCo
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: ffmpeg_tuto video_file");
-    }
-    AVFormatContext *pFormatCtx = NULL;
-
-    if (get_video_info(&pFormatCtx, argv[1]) < 0)
-        return -1;
-
     int videoStream;
     AVCodecContext *pCodecCtx = NULL;
     AVCodecParameters *pCodecParameters = NULL;
+    AVFormatContext *pFormatCtx = NULL;
+
+    if (argc != 2) {
+        fprintf(stderr, "Usage: ffmpeg_tuto video_file");
+    }
+
+    if (get_video_info(&pFormatCtx, argv[1]) < 0)
+        return -1;
 
     videoStream = find_video_stream(&pCodecParameters, pFormatCtx);
     if(videoStream == -1)
